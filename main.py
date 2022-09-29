@@ -56,6 +56,8 @@ for i in loans.index:
 for i in loans.index:
     if loans['Default Reason'][i] == 'Protected Trust Deed':
         loans['Default Reason'][i] = 'PTD'
+        
+loans = loans[['Loan Age','Term','Days Remaining','Loan Purpose','Repayment Status','Amount','Gross Rate','Principal Outstanding']]
 
 sns.set_theme(style="darkgrid")
 
@@ -90,8 +92,6 @@ plt.show()
 
 sns.jointplot(data=loans, x='Days Remaining', y='Principal Outstanding', hue='Repayment Status', palette='inferno')
 plt.show()
-
-loans = loans[['Loan Age','Term','Days Remaining','Loan Purpose','Repayment Status','Amount','Gross Rate','Principal Outstanding']]
 
 ohe = preprocessing.OneHotEncoder(sparse=False)
 loans['Loan Purpose'] = ohe.fit_transform(loans['Loan Purpose'].values.reshape(-1, 1))
